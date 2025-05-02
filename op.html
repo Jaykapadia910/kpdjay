@@ -1,0 +1,246 @@
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Compliments Just for You</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+  body {
+    margin: 0;
+    padding: 1rem;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .container {
+    max-width: 650px;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    padding: 2rem 2.5rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    user-select: none;
+  }
+
+  h1 {
+    margin-bottom: 1rem;
+    font-weight: 600;
+    font-size: 2rem;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  }
+
+  #compliment {
+    font-size: 1.25rem;
+    line-height: 1.5;
+    min-height: 100px;
+    margin-bottom: 1.75rem;
+    opacity: 0;
+    transition: opacity 0.75s ease-in-out;
+  }
+
+  #compliment.show {
+    opacity: 1;
+  }
+
+  button {
+    background: #764ba2;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    font-size: 1rem;
+    color: white;
+    border-radius: 32px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(118, 75, 162, 0.75);
+  }
+
+  button:hover, button:focus {
+    background-color: #8a59c6;
+    outline: none;
+    box-shadow: 0 6px 20px rgba(138, 89, 198, 0.9);
+  }
+
+  @media (max-width: 480px) {
+    .container {
+      padding: 1.5rem 1.8rem;
+      max-width: 90vw;
+    }
+    h1 {
+      font-size: 1.5rem;
+    }
+    #compliment {
+      font-size: 1rem;
+      min-height: 80px;
+      margin-bottom: 1.2rem;
+    }
+    button {
+      width: 100%;
+      font-size: 1.1rem;
+      padding: 0.8rem 0;
+      border-radius: 24px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container" role="main" aria-live="polite" aria-atomic="true">
+  <h1>You're Amazing Just the Way You Are!</h1>
+  <div id="compliment" aria-label="Compliment message"></div>
+  <button id="nextBtn" aria-label="Show next compliment">Show Another Compliment</button>
+</div>
+
+<script>
+  const compliments = [
+    "You are a brilliant thinker and communicator.",
+    "Your words have power and grace.",
+    "Winning this debate shows your incredible intelligence.",
+    "You have the courage to stand up and be heard.",
+    "Your dedication shines through every argument you make.",
+    "You are more capable than you sometimes realize.",
+    "Your confidence grows stronger every day.",
+    "You inspire others with your insightful perspectives.",
+    "Each win is a testament to your hard work and talent.",
+    "You bring clarity and passion to every discussion.",
+    "You have a sharp mind that can tackle any challenge.",
+    "Your ability to listen and respond thoughtfully is impressive.",
+    "You deserve all the recognition coming your way.",
+    "Your poise under pressure is admirable.",
+    "You won because you are prepared and fearless.",
+    "Every argument you make is a step toward success.",
+    "You have a gift for persuasion and brilliance.",
+    "Remember, your value goes beyond this victory.",
+    "You are stronger and smarter than you give yourself credit for.",
+    "Your growth and progress are truly inspiring.",
+    "You make complicated topics look easy.",
+    "You are an amazing debater and even better person.",
+    "Your presence in a room lights it up with confidence.",
+    "You turned your nerves into fuel for greatness.",
+    "Your voice deserves to be heard loud and clear.",
+    "You have a natural talent for seeing all sides and mastering them.",
+    "This victory is just the beginning of your amazing journey.",
+    "You are a true champion—inside and out.",
+    "You are kind, smart, and undeniably talented.",
+    "Your fresh ideas and courage make a real difference.",
+    "Keep believing in yourself like I believe in you.",
+    "You have an unstoppable spirit.",
+    "You made this look effortless, but it took real skill.",
+    "You are a powerhouse of intellect and heart.",
+    "Your efforts inspire everyone around you.",
+    "Your passion fuels your success.",
+    "You are a shining example of dedication and brilliance.",
+    "You earned this win with every bit of your talent.",
+    "Your natural confidence is growing stronger each day.",
+    "You have the ability to change minds and hearts.",
+    "Your determination radiates from inside you.",
+    "You bring the best out of yourself and others.",
+    "You are a storyteller who captivates audiences.",
+    "Your insights leave people thinking deeply.",
+    "You have a magnetic charisma that wins over any crowd.",
+    "You are more than enough—always have been and always will be.",
+    "You faced fears and turned them into triumph.",
+    "Your intelligence is a gift—treasure it.",
+    "You stand tall because you are worthy.",
+    "There’s no challenge too big for your mind and spirit.",
+    "You are constantly growing into your greatness.",
+    "Your calm confidence makes you unforgettable.",
+    "You are an inspiration to everyone who knows you.",
+    "You have the power to accomplish anything.",
+    "Your heart and mind are perfectly balanced.",
+    "You speak truth with eloquence and strength.",
+    "You are a force of nature in the best way.",
+    "You inspire change just by being yourself.",
+    "Your victory is proof of your dedication.",
+    "You are loved, valued, and deeply admired.",
+    "Keep shining your light—there's no one like you.",
+    "Your intelligence shines brighter than anyone else's.",
+    "You are destined for amazing things.",
+    "Your passion makes you unstoppable.",
+    "You handle challenges with grace beyond your years.",
+    "You bring clarity where others see chaos.",
+    "Your mind is sharp, your heart is kind.",
+    "You are a true leader with a powerful voice.",
+    "You are brave, bold, and beautiful inside.",
+    "This win is just one of many you'll have.",
+    "Your debates are a reflection of your amazing spirit.",
+    "You turn words into weapons of kindness and truth.",
+    "You are a wonderful role model.",
+    "You have an incredible ability to connect with others.",
+    "Your belief in yourself will take you far.",
+    "Never doubt how amazing you truly are.",
+    "You are smart, talented, and incredibly resilient.",
+    "You light the way for others with your brilliance.",
+    "Your future is bright and full of promise.",
+    "You inspire confidence in others with every step.",
+    "Your passion and dedication are truly unmatched.",
+    "You make a difference just by sharing your voice.",
+    "You have earned every bit of your success.",
+    "You are clever, compassionate, and courageous.",
+    "Believe in yourself as much as I believe in you.",
+    "You have a heart of gold and a mind to match.",
+    "Your win is a reminder of how special you are.",
+    "You bring joy and inspiration wherever you go.",
+    "You are an unstoppable force of talent and grace.",
+    "You have every reason to be proud of yourself.",
+    "Your mind is a treasure chest of brilliant ideas.",
+    "You are more amazing than you think.",
+    "You inspire me and everyone who knows you.",
+    "Your victory is well deserved and well earned.",
+    "You always rise beautifully to the challenge.",
+    "Your smile after winning says it all.",
+    "You are a star shining bright in the debate world.",
+    "You are a powerhouse of intellect and kindness.",
+    "Your determination and heart are unmatched.",
+    "You make winning look effortless but it’s all you.",
+    "You are a champion of both mind and spirit.",
+    "You inspire greatness in everyone you meet.",
+    "Keep shining with the brilliance only you have.",
+    "You made the impossible look achievable.",
+    "Your success is a reflection of your amazing character.",
+    "You can achieve anything you set your mind to.",
+    "Your courage to speak up is inspiring.",
+    "You have an incredible gift for debate and beyond.",
+    "Your victory reminds you how brilliant you really are.",
+    "You are capable of moving mountains.",
+    "Your intelligence and heart are a winning combo.",
+    "You’ve accomplished something truly outstanding.",
+    "You deserve all the happiness and success in the world.",
+    "Your voice changes the world for the better.",
+    "This is just one of the many great things you’ll do.",
+    "You are smart, strong, and incredibly inspiring.",
+  ];
+
+  const complimentElem = document.getElementById('compliment');
+  const nextBtn = document.getElementById('nextBtn');
+  let currentIndex = -1;
+
+  function showNextCompliment() {
+    complimentElem.classList.remove('show'); // fade out
+    setTimeout(() => {
+      currentIndex = (currentIndex + 1) % compliments.length;
+      complimentElem.textContent = compliments[currentIndex];
+      complimentElem.classList.add('show'); // fade in
+    }, 400);
+  }
+
+  nextBtn.addEventListener('click', showNextCompliment);
+
+  // Show first compliment automatically on load
+  window.addEventListener('load', () => {
+    showNextCompliment();
+  });
+</script>
+
+</body>
+</html>
+```
